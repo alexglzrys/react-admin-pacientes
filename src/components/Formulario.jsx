@@ -23,6 +23,7 @@ export const Formulario = ({ handleAgregarPaciente }) => {
 
     // Generar objeto paciente y Agregarlo en el listado
     const nuevo_paciente = {
+      id: generarId(),
       mascota,
       propietario,
       email,
@@ -41,6 +42,13 @@ export const Formulario = ({ handleAgregarPaciente }) => {
     setSintomas("");
     setError(false);
   };
+
+  const generarId = () => {
+    // Generar en base hexadecimal un número random y el timestamp
+    const random = Math.random().toString(16).substring(2);
+    const timestamp = Date.now().toString(16);
+    return random + timestamp;
+  }
 
   return (
     <div className="md:w-1/2 lg:w-2/5">

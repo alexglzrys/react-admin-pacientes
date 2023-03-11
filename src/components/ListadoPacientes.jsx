@@ -11,9 +11,9 @@ export const ListadoPacientes = ({ pacientes }) => {
         <span className="text-indigo-700 font-bold">Pacientes y Citas</span>
       </p>
       <div className="md:h-screen md:overflow-y-scroll mb-10">
-        {/* Mostrar cada uno de los pacientes registrados en el listado */}
+        {/* Mostrar cada uno de los pacientes registrados en el listado - Es una mala práctica hacer uso del index del arreglo como valor del prop key */}
         {pacientes.map((paciente, index) => (
-          <Paciente key={index} paciente={paciente} />
+          <Paciente key={paciente.id} paciente={paciente} />
         ))}
       </div>
     </div>

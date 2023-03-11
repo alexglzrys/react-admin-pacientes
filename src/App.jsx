@@ -4,11 +4,13 @@ import { ListadoPacientes } from "./components/ListadoPacientes";
 
 function App() {
   return (
-    <>
+    <main className="container mx-auto h-full">
       <Header />
-      <Formulario />
-      <ListadoPacientes />
-    </>
+      <div className="md:flex">
+        <Formulario />
+        <ListadoPacientes />
+      </div>
+    </main>
   );
 }
 

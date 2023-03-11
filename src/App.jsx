@@ -19,7 +19,7 @@ function App() {
       <Header />
       <div className="md:flex">
         <Formulario handleAgregarPaciente={handleAgregarPaciente} />
-        <ListadoPacientes />
+        <ListadoPacientes pacientes={pacientes} />
       </div>
     </main>
   );

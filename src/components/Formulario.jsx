@@ -1,4 +1,18 @@
+import { useState } from "react";
+
 export const Formulario = () => {
+  // Declaración del estado de cada input del formulario
+  const [mascota, setMascota] = useState("");
+  const [propietario, setPropietario] = useState("");
+  const [email, setEmail] = useState("");
+  const [registro, setRegistro] = useState("");
+  const [sintomas, setSintomas] = useState("");
+
+  // controlador de envio de formulario
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="md:w-1/2 lg:w-2/5">
       <h3 className="font-black text-center text-2xl mb-1">
@@ -8,7 +22,10 @@ export const Formulario = () => {
         Añade pacientes y{" "}
         <span className="text-indigo-600 font-bold">Administralos</span>
       </p>
-      <form className="bg-white rounded-md py-10 px-5 shadow-sm mb-10">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-md py-10 px-5 shadow-sm mb-10"
+      >
         {/* Nombre de la mascota */}
         <div className="mb-5">
           <label
@@ -22,6 +39,8 @@ export const Formulario = () => {
             id="mascota"
             placeholder="Nombre de la mascota"
             className="w-full border-2 rounded-sm placeholder-gray-400 p-2"
+            value={mascota}
+            onChange={(e) => setMascota(e.target.value)}
           />
         </div>
         {/* Nombre del Propietario */}
@@ -37,6 +56,8 @@ export const Formulario = () => {
             id="propietario"
             placeholder="Nombre del Propietario"
             className="w-full border-2 rounded-sm placeholder-gray-400 p-2"
+            value={propietario}
+            onChange={(e) => setPropietario(e.target.value)}
           />
         </div>
         {/* Email del Propietario */}
@@ -52,6 +73,8 @@ export const Formulario = () => {
             id="email"
             placeholder="Email de contacto"
             className="w-full border-2 rounded-sm placeholder-gray-400 p-2"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         {/* Fecha de registro */}
@@ -66,6 +89,8 @@ export const Formulario = () => {
             type="date"
             id="registro"
             className="w-full border-2 rounded-sm placeholder-gray-400 p-2"
+            value={registro}
+            onChange={(e) => setRegistro(e.target.value)}
           />
         </div>
         {/* Síntomas */}
@@ -82,6 +107,8 @@ export const Formulario = () => {
             placeholder="Descripción detallada de los síntomas"
             className="w-full border-2 rounded-sm placeholder-gray-400 p-2"
             rows="4"
+            value={sintomas}
+            onChange={(e) => setSintomas(e.target.value)}
           />
         </div>
         {/* Botón de envio */}

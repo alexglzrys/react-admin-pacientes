@@ -1,0 +1,5 @@
+/* Añade las directivas @tailwind para cada una de las capas de Tailwind a tu archivo CSS principal. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

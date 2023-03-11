@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Error } from "./Error";
 
-export const Formulario = ({handleAgregarPaciente}) => {
+export const Formulario = ({ handleAgregarPaciente }) => {
   // Declaración del estado de cada input del formulario
   const [mascota, setMascota] = useState("");
   const [propietario, setPropietario] = useState("");
@@ -8,9 +9,17 @@ export const Formulario = ({handleAgregarPaciente}) => {
   const [registro, setRegistro] = useState("");
   const [sintomas, setSintomas] = useState("");
 
+  // variable de estado para los errores de formulario
+  const [error, setError] = useState(false);
+
   // controlador de envio de formulario
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if ([mascota, propietario, email, registro, sintomas].includes("")) {
+      setError(true);
+      return false;
+    }
 
     // Generar objeto paciente y Agregarlo en el listado
     const nuevo_paciente = {
@@ -18,19 +27,20 @@ export const Formulario = ({handleAgregarPaciente}) => {
       propietario,
       email,
       registro,
-      sintomas
-    }
+      sintomas,
+    };
     handleAgregarPaciente(nuevo_paciente);
     handleLimpiarFormulario();
   };
 
   const handleLimpiarFormulario = () => {
-    setMascota('')
-    setPropietario('')
-    setEmail('')
-    setRegistro('')
-    setSintomas('')
-  }
+    setMascota("");
+    setPropietario("");
+    setEmail("");
+    setRegistro("");
+    setSintomas("");
+    setError(false);
+  };
 
   return (
     <div className="md:w-1/2 lg:w-2/5">
@@ -45,6 +55,12 @@ export const Formulario = ({handleAgregarPaciente}) => {
         onSubmit={handleSubmit}
         className="bg-white rounded-md py-10 px-5 shadow-sm mb-10"
       >
+        {/* Componente para mostrar mensajes de error */}
+        {error && (
+          <Error>
+            <p>Todos los campos son obligatorios</p>
+          </Error>
+        )}
         {/* Nombre de la mascota */}
         <div className="mb-5">
           <label

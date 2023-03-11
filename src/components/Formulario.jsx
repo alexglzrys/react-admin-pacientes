@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const Formulario = () => {
+export const Formulario = ({handleAgregarPaciente}) => {
   // Declaración del estado de cada input del formulario
   const [mascota, setMascota] = useState("");
   const [propietario, setPropietario] = useState("");
@@ -11,7 +11,26 @@ export const Formulario = () => {
   // controlador de envio de formulario
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Generar objeto paciente y Agregarlo en el listado
+    const nuevo_paciente = {
+      mascota,
+      propietario,
+      email,
+      registro,
+      sintomas
+    }
+    handleAgregarPaciente(nuevo_paciente);
+    handleLimpiarFormulario();
   };
+
+  const handleLimpiarFormulario = () => {
+    setMascota('')
+    setPropietario('')
+    setEmail('')
+    setRegistro('')
+    setSintomas('')
+  }
 
   return (
     <div className="md:w-1/2 lg:w-2/5">

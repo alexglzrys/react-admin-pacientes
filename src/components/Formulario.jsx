@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Error } from "./Error";
 
-export const Formulario = ({ handleAgregarPaciente }) => {
+export const Formulario = ({ handleAgregarPaciente, paciente }) => {
   // Declaración del estado de cada input del formulario
   const [mascota, setMascota] = useState("");
   const [propietario, setPropietario] = useState("");
@@ -11,6 +11,14 @@ export const Formulario = ({ handleAgregarPaciente }) => {
 
   // variable de estado para los errores de formulario
   const [error, setError] = useState(false);
+
+  // Efecto secundario para llenar el formulario si hay un paciente seleccionado para proceder a editarlo
+  useEffect(() => {
+    // Verificar si el objeto paciente tiene información
+    if (Object.keys(paciente).length > 0) {
+      llenarFormulario(paciente);
+    }
+  }, [paciente]);
 
   // controlador de envio de formulario
   const handleSubmit = (e) => {
@@ -48,7 +56,15 @@ export const Formulario = ({ handleAgregarPaciente }) => {
     const random = Math.random().toString(16).substring(2);
     const timestamp = Date.now().toString(16);
     return random + timestamp;
-  }
+  };
+
+  const llenarFormulario = (paciente) => {
+    setMascota(paciente.mascota);
+    setPropietario(paciente.propietario);
+    setEmail(paciente.email);
+    setRegistro(paciente.registro);
+    setSintomas(paciente.sintomas);
+  };
 
   return (
     <div className="md:w-1/2 lg:w-2/5">
@@ -159,7 +175,7 @@ export const Formulario = ({ handleAgregarPaciente }) => {
           type="submit"
           className="w-full bg-indigo-800 text-white p-3 uppercase hover:bg-indigo-900 cursor-pointer transition-colors"
         >
-          Agregar Paciente
+          {paciente.id ? 'Editar Paciente' : 'Agregar Paciente'}
         </button>
       </form>
     </div>

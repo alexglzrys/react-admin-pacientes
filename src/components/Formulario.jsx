@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Error } from "./Error";
 
-export const Formulario = ({ handleAgregarPaciente, paciente }) => {
+export const Formulario = ({ handleAgregarPaciente, handleActualizarPaciente, paciente }) => {
   // Declaración del estado de cada input del formulario
   const [mascota, setMascota] = useState("");
   const [propietario, setPropietario] = useState("");
@@ -31,14 +31,21 @@ export const Formulario = ({ handleAgregarPaciente, paciente }) => {
 
     // Generar objeto paciente y Agregarlo en el listado
     const nuevo_paciente = {
-      id: generarId(),
       mascota,
       propietario,
       email,
       registro,
       sintomas,
     };
-    handleAgregarPaciente(nuevo_paciente);
+
+    // Verificar si se trata de un registro o una actualización de paciente
+    if (paciente.id) {
+      nuevo_paciente.id = paciente.id;
+      handleActualizarPaciente(nuevo_paciente);
+    } else {
+      nuevo_paciente.id = generarId();
+      handleAgregarPaciente(nuevo_paciente);
+    }
     handleLimpiarFormulario();
   };
 
@@ -56,7 +63,7 @@ export const Formulario = ({ handleAgregarPaciente, paciente }) => {
     const random = Math.random().toString(16).substring(2);
     const timestamp = Date.now().toString(16);
     return random + timestamp;
-  };
+  };  
 
   const llenarFormulario = (paciente) => {
     setMascota(paciente.mascota);

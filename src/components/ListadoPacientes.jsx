@@ -1,6 +1,10 @@
 import { Paciente } from "./Paciente";
 
-export const ListadoPacientes = ({ pacientes, handleSeleccionarPaciente }) => {
+export const ListadoPacientes = ({
+  pacientes,
+  handleSeleccionarPaciente,
+  handleEliminarPaciente,
+}) => {
   return (
     <div className="md:w-1/2 lg:w-3/5 md:ml-5">
       {pacientes && pacientes.length ? (
@@ -14,8 +18,13 @@ export const ListadoPacientes = ({ pacientes, handleSeleccionarPaciente }) => {
           </p>
           <div className="md:h-screen md:overflow-y-scroll mb-10">
             {/* Mostrar cada uno de los pacientes registrados en el listado - Es una mala práctica hacer uso del index del arreglo como valor del prop key */}
-            {pacientes.map((paciente, index) => (
-              <Paciente key={paciente.id} paciente={paciente} handleSeleccionarPaciente={handleSeleccionarPaciente} />
+            {pacientes.map((paciente) => (
+              <Paciente
+                key={paciente.id}
+                paciente={paciente}
+                handleSeleccionarPaciente={handleSeleccionarPaciente}
+                handleEliminarPaciente={handleEliminarPaciente}
+              />
             ))}
           </div>
         </>

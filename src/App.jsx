@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { useState } from "react";
 import { Formulario } from "./components/Formulario";
 import { Header } from "./components/Header";
@@ -22,10 +23,30 @@ function App() {
   const handleActualizarPaciente = (paciente_modificado) => {
     // Mapear el listado de pacientes en el estado, y reemplazar el paciente editado con la nueva información
     const lista_pacientes_actualizados = pacientes.map((paciente_state) =>
-      paciente.id === paciente_modificado.id ? paciente_modificado : paciente_state
+      paciente.id === paciente_modificado.id
+        ? paciente_modificado
+        : paciente_state
     );
     // Actualizar el estado con el nuevo listado de pacientes actualizado
     setPacientes(lista_pacientes_actualizados);
+  };
+
+  const handleEliminarPaciente = (id) => {
+    // Confirmar que realmente se quiere eliminar el paciente, mediante la librería SweetAlert
+    Swal.fire({
+      title: "Estimado usuario",
+      text: "Realmente deseas eliminar a este paciente",
+      icon: "warning",
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // filtrar el listado de pacientes en el estado, para retirar el paciente con el id seleccionado
+        const lista_pacientes_actualizados = pacientes.filter(
+          (paciente_state) => paciente_state.id !== id
+        );
+        setPacientes(lista_pacientes_actualizados);
+      }
+    });
   };
 
   return (
@@ -40,6 +61,7 @@ function App() {
         <ListadoPacientes
           pacientes={pacientes}
           handleSeleccionarPaciente={handleSeleccionarPaciente}
+          handleEliminarPaciente={handleEliminarPaciente}
         />
       </div>
     </main>

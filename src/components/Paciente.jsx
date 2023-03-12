@@ -1,6 +1,6 @@
-export const Paciente = ({ paciente, handleSeleccionarPaciente }) => {
+export const Paciente = ({ paciente, handleSeleccionarPaciente, handleEliminarPaciente }) => {
   // destructurar las propiedades del objeto paciente
-  const { mascota, propietario, email, registro, sintomas } = paciente;
+  const { id, mascota, propietario, email, registro, sintomas } = paciente;
   return (
     <div className="bg-white rounded-md py-10 px-5 shadow-sm mb-4">
       <p className="font-bold uppercase mb-3 text-gray-700">
@@ -31,6 +31,7 @@ export const Paciente = ({ paciente, handleSeleccionarPaciente }) => {
         <button
           type="button"
           className="uppercase bg-red-700 text-white p-2 w-32 rounded-md"
+          onClick={() => handleEliminarPaciente(id)}
         >
           Eliminar
         </button>

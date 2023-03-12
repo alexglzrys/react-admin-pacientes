@@ -1,15 +1,27 @@
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formulario } from "./components/Formulario";
 import { Header } from "./components/Header";
 import { ListadoPacientes } from "./components/ListadoPacientes";
 
+const initialState = () => {
+  return JSON.parse(localStorage.getItem("pacientes")) ?? [];
+}
+
 function App() {
   // Estado que se comparte en varios componentes, debe ser declarado de en el nivel más alto
-  // Estado para el listado de pacientes
-  const [pacientes, setPacientes] = useState([]);
+  // Estado para el listado de pacientes - datos recuperados desde localStorage
+  const [pacientes, setPacientes] = useState(initialState);
   // Variable de estado para verificar si hay un paciente seleccionado para editar
   const [paciente, setPaciente] = useState({});
+
+  // Efectos secundarios
+
+  // Actualizar localStorage con la neuva información del listado de pacientes
+  // cada vez que el listado de pacientes, guardar esos cambios en localStorage
+  useEffect(() => {
+    localStorage.setItem("pacientes", JSON.stringify(pacientes));
+  }, [pacientes]);
 
   // Controlador para agregar un nuevo paciente al listado
   const handleAgregarPaciente = (nuevo_paciente) => {
@@ -23,7 +35,7 @@ function App() {
   const handleActualizarPaciente = (paciente_modificado) => {
     // Mapear el listado de pacientes en el estado, y reemplazar el paciente editado con la nueva información
     const lista_pacientes_actualizados = pacientes.map((paciente_state) =>
-      paciente.id === paciente_modificado.id
+      paciente_state.id === paciente_modificado.id
         ? paciente_modificado
         : paciente_state
     );
